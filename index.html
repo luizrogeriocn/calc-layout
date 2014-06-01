@@ -6,10 +6,9 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="./public/css/bootstrap.min.css">
         <style>
-            #output{
-                text-align: right;
-                padding: 30px 0;
-                font-size: 46px;
+            .output{
+                font-size: 46px !important;
+                text-align: right !important;
             }
             #buttons .row{
                 margin-bottom: 10px;
@@ -27,17 +26,10 @@
     </head>
     <body>
         <div class="container" ng-controller="Calculator">
-            <div class="row">
-                <div class="span8 panel-body" id="output">
-                    {{ result }}
-                </div>
-            </div>
             <div class="row" id="buttons">
                 <div class="span6">
                     <div class="row">
-                        <button ng-click="resetOperand()" type="input" class="btn btn-inverse span2">CE</button>
-                        <button ng-click="resetOperation()" type="button" class="btn btn-inverse span2">C</button>
-                        <button ng-click="" type="button" class="btn btn-inverse span2"><i class="icon-arrow-left icon-white"></i></button>
+                        <button ng-click="calculate()" type="button" class="btn output text-right span6">{{result}}</button>
                     </div>
                     <div class="row">
                         <button ng-click="addNumber(1)" type="button" class="btn span2">1</button>

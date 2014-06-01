@@ -19,9 +19,6 @@ calculator.controller('Calculator', function($scope) {
     $scope.addNumber = function(number) {
         number = number.toString();
 
-        // atividade de casa para minha amada Gabriela
-        // refatorar essa função! :D
-
         if (operation === undefined)
         {
             if (numA === undefined)
@@ -42,7 +39,7 @@ calculator.controller('Calculator', function($scope) {
             {
                 numB += number;
             }
-            $scope.result = numB;
+            $scope.result = numA.toString()+operation.toString()+numB.toString();
         }
     };
 
@@ -88,6 +85,7 @@ calculator.controller('Calculator', function($scope) {
         if (operation === undefined)
         {
             operation = operator;
+            $scope.result = numA.toString()+operation.toString()
         }
     };
 });
