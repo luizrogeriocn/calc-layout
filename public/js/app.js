@@ -24,7 +24,7 @@ calculator.controller('Calculator', function($scope) {
             if (numA === undefined)
             {
                 numA = number;
-            } else
+            } else if($scope.result.length <= 7)
             {
                 numA += number;
             }
@@ -35,7 +35,7 @@ calculator.controller('Calculator', function($scope) {
             if (numB === undefined)
             {
                 numB = number;
-            } else
+            } else if($scope.result.length <= 16)
             {
                 numB += number;
             }
@@ -74,8 +74,8 @@ calculator.controller('Calculator', function($scope) {
             {
                 operation = undefined;
                 numB = undefined;
-                numA = calculation;
-                $scope.result = calculation;
+                numA = calculation.toFixed(2);
+                $scope.result = calculation.toFixed(2);
             }
 
         }
@@ -85,7 +85,6 @@ calculator.controller('Calculator', function($scope) {
         if (operation === undefined && numA !== undefined)
         {
             operation = operator;
-            //$scope.result = numA.toString()+operation.toString()
         }
     };
 });
