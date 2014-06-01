@@ -82,10 +82,10 @@ calculator.controller('Calculator', function($scope) {
     };
 
     $scope.chooseOperation = function(operator) {
-        if (operation === undefined)
+        if (operation === undefined && numA !== undefined)
         {
             operation = operator;
-            $scope.result = numA.toString()+operation.toString()
+            //$scope.result = numA.toString()+operation.toString()
         }
     };
 });
