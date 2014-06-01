@@ -3,34 +3,17 @@
 
 var express = require('express');
 var app     = express();
+var path	= __dirname;
 var port    = 	process.env.PORT || 8888;
+
+app.use(express.static(path));
 
 // ROUTES
 // ==============================================
 
 app.get('/', function(req, res) {
-	res.send('Layout!');	
+	res.status(200).sendfile('./index.html');	
 });
-
-app.post('/add', function(req, res) {
-	res.send('Rota de soma!');	
-});
-
-app.post('/sub', function(req, res) {
-	res.send('Rota de subtração!');	
-});
-
-app.post('/mult', function(req, res) {
-	res.send('Rota de multiplicação!');	
-});
-
-app.post('/div', function(req, res) {
-	res.send('Rota de divisão!');	
-});
-
-
-
-// we'll create our routes here
 
 // START THE SERVER
 // ==============================================
