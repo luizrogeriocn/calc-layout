@@ -4,7 +4,7 @@ calculator.controller('Calculator', function($scope, $http) {
     
     var sendCalculationRequest = function(action, formData)
     {
-        $http.post('http://localhost:8080/'+action, formData)
+        $http.post('http://gcm-calculator.herokuapp.com/'+action, formData)
                         .success(function(data) {
                             $scope.calculation = data;
                             $scope.result = data;
