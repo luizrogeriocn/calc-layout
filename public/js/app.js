@@ -57,6 +57,7 @@ calculator.controller('Calculator', function($scope, $http) {
                             $scope.result = data;
                             numA = data;
                             numB = undefined;
+                            operation = undefined;
                             console.log(data);
                         })
                         .error(function(data) {
@@ -76,6 +77,7 @@ calculator.controller('Calculator', function($scope, $http) {
                             $scope.result = data;
                             numA = data;
                             numB = undefined;
+                            operation = undefined;
                             console.log(data);
                         })
                         .error(function(data) {
@@ -89,6 +91,7 @@ calculator.controller('Calculator', function($scope, $http) {
                             $scope.result = data;
                             numA = data;
                             numB = undefined;
+                            operation = undefined;
                             console.log(data);
                         })
                         .error(function(data) {
@@ -102,6 +105,7 @@ calculator.controller('Calculator', function($scope, $http) {
                             $scope.result = data;
                             numA = data;
                             numB = undefined;
+                            operation = undefined;
                             console.log(data);
                         })
                         .error(function(data) {
