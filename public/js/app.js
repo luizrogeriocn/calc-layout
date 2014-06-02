@@ -1,6 +1,22 @@
 var calculator = angular.module('Calculator', []);
 calculator.controller('Calculator', function($scope, $http) {
     var numA, numB, operation;
+    
+    var sendCalculationRequest = function(action, formData)
+    {
+        $http.post('http://localhost:8080/'+action, formData)
+                        .success(function(data) {
+                            $scope.calculation = data;
+                            $scope.result = data;
+                            numA = data;
+                            numB = undefined;
+                            operation = undefined;
+                            console.log(data);
+                        })
+                        .error(function(data) {
+                            console.log('Error: ' + data);
+                        });
+    };
 
     $scope.result = 0;
     $scope.calculation;
@@ -12,16 +28,12 @@ calculator.controller('Calculator', function($scope, $http) {
         operation = undefined;
     };
 
-    $scope.resetOperand = function() {
-
-    };
-
     $scope.addNumber = function(number) {
         number = number.toString();
 
-        if (operation === undefined)
+        if (!operation)
         {
-            if (numA === undefined)
+            if (!numA)
             {
                 numA = number;
             } else if($scope.result.length <= 7)
@@ -32,101 +44,49 @@ calculator.controller('Calculator', function($scope, $http) {
             $scope.result = numA;
         } else
         {
-            if (numB === undefined)
+            if (!numB)
             {
                 numB = number;
             } else if($scope.result.length <= 16)
             {
                 numB += number;
             }
-            $scope.result = numA.toString()+operation.toString()+numB.toString();
+            
+            $scope.result = numA.toString() + operation.toString() + numB.toString();
         }
     };
 
     $scope.calculate = function() {
-        if (numA !== undefined && numB !== undefined)
+        if (numA && numB)
         {
             var formData = {numA: numA, numB: numB};
 
             switch (operation)
             {
                 case '+':
-                    $http.post('http://gcm-calculator.herokuapp.com/add', formData)
-                        .success(function(data) {
-                            $scope.calculation = data;
-                            $scope.result = data;
-                            numA = data;
-                            numB = undefined;
-                            operation = undefined;
-                            console.log(data);
-                        })
-                        .error(function(data) {
-                            console.log('Error: ' + data);
-                        });
+                    sendCalculationRequest('add', formData);
                     break;
                 case '/':
                     if (numB === '0')
                     {
                         $scope.resetOperation();
-                        alert('OperaÃ§Ã£o InvÃ¡lida.');
+                        alert('Operação inválida.');
                         break;
                     }
-                    $http.post('http://gcm-calculator.herokuapp.com/div', formData)
-                        .success(function(data) {
-                            $scope.calculation = data;
-                            $scope.result = data;
-                            numA = data;
-                            numB = undefined;
-                            operation = undefined;
-                            console.log(data);
-                        })
-                        .error(function(data) {
-                            console.log('Error: ' + data);
-                        });
+                    sendCalculationRequest('div', formData);
                     break;
                 case '*':
-                    $http.post('http://gcm-calculator.herokuapp.com/mult', formData)
-                        .success(function(data) {
-                            $scope.calculation = data;
-                            $scope.result = data;
-                            numA = data;
-                            numB = undefined;
-                            operation = undefined;
-                            console.log(data);
-                        })
-                        .error(function(data) {
-                            console.log('Error: ' + data);
-                        });
+                    sendCalculationRequest('mult', formData);
                     break;
                 case '-':
-                    $http.post('http://gcm-calculator.herokuapp.com/sub', formData)
-                        .success(function(data) {
-                            $scope.calculation = data;
-                            $scope.result = data;
-                            numA = data;
-                            numB = undefined;
-                            operation = undefined;
-                            console.log(data);
-                        })
-                        .error(function(data) {
-                            console.log('Error: ' + data);
-                        });
+                    sendCalculationRequest('sub', formData);
                     break;
             }
-
-            if ($scope.calculation !== undefined)
-            {
-                operation = undefined;
-                numB = undefined;
-                numA = $scope.calculation;
-                $scope.result = $scope.calculation;
-            }
-
         }
     };
 
     $scope.chooseOperation = function(operator) {
-        if (operation === undefined && numA !== undefined)
+        if (!operation && numA)
         {
             operation = operator;
         }
