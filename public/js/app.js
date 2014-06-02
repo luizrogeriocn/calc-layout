@@ -1,9 +1,9 @@
 var calculator = angular.module('Calculator', []);
-
-calculator.controller('Calculator', function($scope) {
+calculator.controller('Calculator', function($scope, $http) {
     var numA, numB, operation;
 
     $scope.result = 0;
+    $scope.calculation;
 
     $scope.resetOperation = function() {
         $scope.result = 0;
@@ -46,12 +46,23 @@ calculator.controller('Calculator', function($scope) {
     $scope.calculate = function() {
         if (numA !== undefined && numB !== undefined)
         {
-            var calculation;
+            var formData = {numA: numA, numB: numB};
 
             switch (operation)
             {
                 case '+':
-                    calculation = +numA + +numB; //chamada pra api
+                    $http.post('http://gcm-calculator.herokuapp.com/add', formData)
+                        .success(function(data) {
+                            $scope.calculation = data;
+                            $scope.result = data;
+                            numA = data;
+                            numB = "";
+                            console.log(data);
+                        })
+                        .error(function(data) {
+                            console.log('Error: ' + data);
+                        });
+                    //calculation = +numA + +numB; //chamada pra api
                     break;
                 case '/':
                     if (numB === '0')
@@ -60,22 +71,52 @@ calculator.controller('Calculator', function($scope) {
                         alert('Operação Inválida.');
                         break;
                     }
-                    calculation = +numA / +numB; //chamada pra api
+                    $http.post('http://gcm-calculator.herokuapp.com/div', formData)
+                        .success(function(data) {
+                            $scope.calculation = data;
+                            $scope.result = data;
+                            numA = data;
+                            numB = "";
+                            console.log(data);
+                        })
+                        .error(function(data) {
+                            console.log('Error: ' + data);
+                        });
                     break;
                 case '*':
-                    calculation = +numA * +numB; //chamada pra api
+                    $http.post('http://gcm-calculator.herokuapp.com/mult', formData)
+                        .success(function(data) {
+                            $scope.calculation = data;
+                            $scope.result = data;
+                            numA = data;
+                            numB = "";
+                            console.log(data);
+                        })
+                        .error(function(data) {
+                            console.log('Error: ' + data);
+                        });
                     break;
                 case '-':
-                    calculation = +numA - +numB; //chamada pra api
+                    $http.post('http://gcm-calculator.herokuapp.com/sub', formData)
+                        .success(function(data) {
+                            $scope.calculation = data;
+                            $scope.result = data;
+                            numA = data;
+                            numB = "";
+                            console.log(data);
+                        })
+                        .error(function(data) {
+                            console.log('Error: ' + data);
+                        });
                     break;
             }
 
-            if (calculation !== undefined)
+            if ($scope.calculation !== undefined)
             {
                 operation = undefined;
                 numB = undefined;
-                numA = calculation.toFixed(2);
-                $scope.result = calculation.toFixed(2);
+                numA = $scope.calculation;
+                $scope.result = $scope.calculation;
             }
 
         }
