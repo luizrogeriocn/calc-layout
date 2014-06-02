@@ -56,13 +56,12 @@ calculator.controller('Calculator', function($scope, $http) {
                             $scope.calculation = data;
                             $scope.result = data;
                             numA = data;
-                            numB = "";
+                            numB = undefined;
                             console.log(data);
                         })
                         .error(function(data) {
                             console.log('Error: ' + data);
                         });
-                    $scope.result = "loading...";
                     break;
                 case '/':
                     if (numB === '0')
@@ -76,13 +75,12 @@ calculator.controller('Calculator', function($scope, $http) {
                             $scope.calculation = data;
                             $scope.result = data;
                             numA = data;
-                            numB = "";
+                            numB = undefined;
                             console.log(data);
                         })
                         .error(function(data) {
                             console.log('Error: ' + data);
                         });
-                    $scope.result = "loading...";
                     break;
                 case '*':
                     $http.post('http://gcm-calculator.herokuapp.com/mult', formData)
@@ -90,13 +88,12 @@ calculator.controller('Calculator', function($scope, $http) {
                             $scope.calculation = data;
                             $scope.result = data;
                             numA = data;
-                            numB = "";
+                            numB = undefined;
                             console.log(data);
                         })
                         .error(function(data) {
                             console.log('Error: ' + data);
                         });
-                    $scope.result = "loading...";
                     break;
                 case '-':
                     $http.post('http://gcm-calculator.herokuapp.com/sub', formData)
@@ -104,13 +101,12 @@ calculator.controller('Calculator', function($scope, $http) {
                             $scope.calculation = data;
                             $scope.result = data;
                             numA = data;
-                            numB = "";
+                            numB = undefined;
                             console.log(data);
                         })
                         .error(function(data) {
                             console.log('Error: ' + data);
                         });
-                    $scope.result = "loading...";
                     break;
             }
 
